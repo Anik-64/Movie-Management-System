@@ -260,4 +260,66 @@ movieRouter.put('/update/:id',
     }
 );
 
+// Report a Movie
+movieRouter.post('/report/:movieId',
+    [
+        param('movieId')
+            .notEmpty().withMessage('Movie ID is required')
+            .customSanitizer(value => xss(value)),
+        body('reason')
+            .notEmpty().withMessage('Reason is required')
+            .isString().withMessage('Reason must be a string')
+            .trim().escape()
+            .isLength({ min: 5, max: 255 }).withMessage('Reason must be between 5 and 255 characters long')
+            .customSanitizer(value => xss(value)),
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const errorMessages = errors.array().map((err) => err.msg);
+            return res.status(400).json({
+                error: true,
+                message: errorMessages[0],
+            });
+        }
+
+        const { movieId } = req.params;
+        const { reason } = req.body;
+        const userId = req.user.id; // Extracted from JWT token
+
+        try {
+            // Check if the movie exists
+            const movieRef = db.collection('movies').doc(movieId);
+            const movieSnapshot = await movieRef.get();
+
+            if (!movieSnapshot.exists) {
+                return res.status(404).json({
+                    error: true,
+                    message: 'Movie not found',
+                });
+            }
+
+            // Add the report
+            await db.collection('reports').add({
+                movie_id: movieId,
+                user_id: userId,
+                reason,
+                status: 'pending', // Pending approval
+                created_at: new Date().toISOString(),
+            });
+
+            res.status(201).json({
+                error: false,
+                message: 'Movie reported successfully',
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                error: true,
+                message: 'Failed to report the movie',
+            });
+        }
+    }
+);
+
 module.exports = movieRouter;
