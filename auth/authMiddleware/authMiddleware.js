@@ -47,8 +47,22 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+// Middleware to handle role-based routing for multiple roles
+const authorizeRoles = (roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return res.status(403).json({
+                error: true,
+                message: `Access denied! This route is restricted to roles: ${roles.join(', ')}.`
+            });
+        }
+        next();
+    };
+};
+
 
 module.exports = {
     generateTokens,
     authenticateToken,
+    authorizeRoles
 };
