@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const { authenticateToken } = require('./auth/authMiddleware/authMiddleware');
 const userRoute = require('./server/movie');
+const rateRoute = require('./server/rate');
 const authRoute = require('./auth/auth');
 
 require('dotenv').config();
@@ -57,6 +58,7 @@ app.use('/api/auth', authRoute);
 
 // Routers
 app.use('/api/movie', authenticateToken, userRoute);
+app.use('/api/movie/rate', authenticateToken, rateRoute);
 
 // Start the server
 app.listen(process.env.PORT, () => {
