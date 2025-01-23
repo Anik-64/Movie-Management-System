@@ -46,7 +46,7 @@ authRouter.post('/register',
             .trim().escape()
             .isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
             .customSanitizer(value => xss(value)),
-        body('userrole')
+        body('role')
             .optional()
             .isString().withMessage('User role must be a string')
             .trim().escape()
@@ -93,7 +93,7 @@ authRouter.post('/register',
                 username,
                 email,
                 password: hashedPassword,
-                role: role || 'user',
+                role
             });
 
             res.status(201).json({
