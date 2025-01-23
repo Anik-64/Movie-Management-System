@@ -3,7 +3,6 @@ const { commonMiddlewares, createRateLimiter } = require("../middleware/commonMi
 const { body, param, validationResult } = require("express-validator");
 const admin = require("../config/config");
 const xss = require("xss");
-const movieRouter = require("./movie");
 // const bcrypt = require('bcrypt');
 
 const rateRouter = express.Router();
