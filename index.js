@@ -4,9 +4,10 @@ const morgan = require('morgan');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const { authenticateToken } = require('./auth/authMiddleware/authMiddleware');
+const { authenticateToken, authorizeRoles } = require('./auth/authMiddleware/authMiddleware');
 const userRoute = require('./server/movie');
 const rateRoute = require('./server/rate');
+const reportRoute = require('./server/adminReports');
 const authRoute = require('./auth/auth');
 
 require('dotenv').config();
@@ -57,8 +58,9 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoute);
 
 // Routers
-app.use('/api/movie', authenticateToken, userRoute);
-app.use('/api/movie/rate', authenticateToken, rateRoute);
+app.use('/api/movie', authenticateToken, authorizeRoles(['admin', 'user']), userRoute);
+app.use('/api/movie/rate', authenticateToken, authorizeRoles(['admin', 'user']), rateRoute);
+app.use('/api/movie/admin/reports', authenticateToken, authorizeRoles(['admin']), reportRoute);
 
 // Start the server
 app.listen(process.env.PORT, () => {
