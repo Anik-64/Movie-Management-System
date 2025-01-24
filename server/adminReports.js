@@ -16,7 +16,7 @@ adminRouter.use(adminRouterLimiter);
 const db = admin.firestore();
 
 // Admin: Manage a report (Approve/Reject)
-adminRouter.post('/reports/manage/:reportId',
+adminRouter.post('/manage/:reportId',
     [
         param('reportId')
             .notEmpty().withMessage('Report ID is required')
