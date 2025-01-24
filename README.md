@@ -23,7 +23,6 @@ This repository contains the code for a secure and user-friendly Movie Managemen
 ### Reporting Movies
 - Users can report inappropriate movies.
 - Admins can view, approve, or reject reports.
-- Approved reports mark movies as "reported," while rejected reports are deleted.
 
 ## Technologies Used
 
