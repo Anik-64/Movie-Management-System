@@ -73,6 +73,9 @@ This repository contains the code for a secure and user-friendly Movie Managemen
 Here, you can find all service API [Postman](https://documenter.getpostman.com/view/33257219/2sAYQdkW7i)
 <img align="right" src="https://wso2.cachefly.net/wso2/sites/all/2021-theme/apim-2021/apim4-animations/apim-page-animation-get-business-insights-and-intelligence-through-APIs.gif">
 
+### Health Check
+- `GET /` - Health check status.
+
 ### Authentication
 - `POST /api/auth/register` - Register a new user.
 - `POST /api/auth/login/emailpassword` - Log in with email and password.
