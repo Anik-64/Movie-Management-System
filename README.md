@@ -106,4 +106,4 @@ HTTP requests are logged in `access.log` with sensitive data masked.
 - Rate limiting to prevent brute-force attacks.
 
 ## Contributions
-Feel free to submit issues or pull requests to improve this project. Make sure to follow the contribution guidelines.
+Feel free to submit issues or pull requests to improve this project.
