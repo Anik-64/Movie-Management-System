@@ -152,7 +152,7 @@ authRouter.post('/login/emailpassword',
             }
 
             const user = checkExistEmail.docs[0].data();
-            const docId = checkExistUsername.docs[0].id;
+            const docId = checkExistEmail.docs[0].id;
 
             // Verify the password
             const isMatch = await bcrypt.compare(password, user.password);
