@@ -192,7 +192,7 @@
     "strip-ansi": "^6.0.1",
     "strnum": "^1.0.5",
     "stubs": "^3.0.0",
-    "tar": "^6.2.1",
+    "tar": "^7.5.3",
     "teeny-request": "^9.0.0",
     "toidentifier": "^1.0.1",
     "tr46": "^0.0.3",
